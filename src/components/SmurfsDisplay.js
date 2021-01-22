@@ -9,7 +9,7 @@ function SmurfDisplay() {
   }
   return(
     <div>
-      Smurf Display
+      Smurf List
        {smurfsDisplay.map((smurf, idx)=>{
         return <Smurf key={idx} smurf={smurf}/>
       })}
