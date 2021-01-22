@@ -1,24 +1,66 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {connect} from 'react-redux';
+import {addSmurfs} from '../actions/addSmurfs';
 
-class AddForm extends React.Component {
+function AddForm(props) {
+  const [input, setInput] = useState({name: "", age: 1, height: ""});
 
-    render() {
-        return(<section>
-            <h2>Add Smurf</h2>
-            <form>
-                <div className="form-group">
-                    <label htmlFor="name">Name:</label><br/>
-                    <input onChange={this.handleChange} name="name" id="name" />
-                </div>
-
-                <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error: </div>
-                <button>Submit Smurf</button>
-            </form>
-        </section>);
+  function changeHandler(e) {
+    if (e.target.name === "name") {
+      setInput({...input, name: e.target.value})
     }
+    else if (e.target.name === "age") {
+      setInput({...input, age: e.target.value})
+    }
+    else {
+      setInput({...input, height: e.target.value})
+    }
+  }
+
+  function addSmurf(e) {
+    e.preventDefault();
+    props.addSmurfs(input)
+  }
+
+  return(
+    <form onSubmit={addSmurf}>
+      <h3>Add a Smurf</h3>
+      <label htmlFor="name">Name:
+      <input
+        name="name"
+        id="name"
+        type="text"
+        value={input.name}
+        onChange={changeHandler}
+      />
+      </label>
+      
+      <label htmlFor="age">Age:
+      <input 
+        name="age"
+        id="age"
+        type="number"
+        value={input.age}
+        onChange={changeHandler}
+      />
+      </label>
+
+      <label htmlFor="height">Height:
+      <input 
+        name="height"
+        id="height"
+        type="text"
+        value={input.height}
+        onChange={changeHandler}
+      />
+      </label>
+      <button>Submit</button>
+    </form>
+  )
 }
 
-export default AddForm;
+export default connect(null, {addSmurfs})(AddForm);
+
 
 //Task List:
 //1. Add in all necessary import components and library methods.

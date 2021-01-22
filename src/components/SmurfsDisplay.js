@@ -1,11 +1,20 @@
 import React from 'react';
+import Smurf from './Smurf';
+import {useSelector} from 'react-redux';
 
-export class SmurfDisplay extends React.Component {
-    render() {
-        return(<div>
-            
-        </div>)
-    }
+function SmurfDisplay() {
+  const smurfsDisplay = useSelector(state=>state)
+  if (!smurfsDisplay) {
+    return (<div>Loading...</div>)
+  }
+  return(
+    <div>
+      Smurf Display
+       {smurfsDisplay.map((smurf, idx)=>{
+        return <Smurf key={idx} smurf={smurf}/>
+      })}
+    </div>
+  )
 }
 
 export default SmurfDisplay;

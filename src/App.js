@@ -1,29 +1,23 @@
-import React, { Component } from "react";
-
-import AddForm from './components/AddForm';
-import SmurfDisplay from './components/SmurfDisplay';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useEffect } from "react";
+import {connect} from "react-redux";
 import "./App.css";
+import {getSmurfs} from './actions/getSmurfs';
+import SmurfsDisplay from './components/SmurfsDisplay';
+import AddForm from './components/AddForm';
 
-class App extends Component {
-  
-  render() {
-    return (
-      <div className="App">
-        <nav className="navbar navbar-dark bg-primary">
-          <a className="navbar-brand">Smurf Village Database</a>
-        </nav>
-        <main>
-          <AddForm/>
-          <SmurfDisplay/>
-        </main>
-      </div>
-    );
-  }
+function App(props) {
+  useEffect(()=>{
+    props.getSmurfs()
+  },[]);
+ 
+  return (
+    <div className="App">
+      <SmurfsDisplay />
+      <AddForm />
+    </div>
+  );
 }
 
-export default App;
-
+export default connect(null, {getSmurfs})(App);
 //Task List:
 //1. Add in SmurfDisplay and AddForm into your application.
